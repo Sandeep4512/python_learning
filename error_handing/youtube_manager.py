@@ -1,10 +1,26 @@
 
+import json
+
+def load_data():
+    try:
+        with open('youtube.txt','r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return []
+
+def save_data_helper(videos):
+    with open('youtube.txt','w') as file:
+        json.dump(videos,file)
 
 def list_all_video(videos):
-    pass
+     for index, videos in enumerate(videos,start=1):
+         print(f"{index}")
 
 def add_video(videos):
-    pass
+    name = input("Enter video name: ")
+    time = input("Enter video time: ")
+    videos.append({'name': name,'time': time})
+    save_data_helper(videos)
 
 def update_video(videos):
     pass
@@ -12,37 +28,39 @@ def update_video(videos):
 def delete_video(videos):
     pass
 
-def exit_app():
-    pass
 
-videos = []
-while True:
-    print("\n Youtube manager | choose an option  ")
-    print("1. list of all youtube video ")
-    print("2. Add a youtube video")
-    print("3 update a youtube video details")
-    print("4 delete a youtube video")
-    print("5 Exit the app ")
-    choice = input("enter you choice")
+def main():
+    videos = load_data()
+    while True:
+        print("\n Youtube manager | choose an option  ")
+        print("1. list of all youtube video ")
+        print("2. Add a youtube video")
+        print("3 update a youtube video details")
+        print("4 delete a youtube video")
+        print("5 Exit the app ")
+        choice = input("enter you choice")
+        print(videos)
 
-    match choice:
-        case '1':
-            list_all_video(videos)
+        match choice:
+            case '1':
+                list_all_video(videos)
 
-        case '2':
-            add_video(videos)
+            case '2':
+                add_video(videos)
 
-        case '3':
-            update_video(videos)
+            case '3':
+                update_video(videos)
 
-        case '4':
-            delete_video(videos)
+            case '4':
+                delete_video(videos)
 
-        case '5':
-            break
+            case '5':
+                break
+                
+            case _:
+                print("Invalid choice")
 
-        case _:
-            print("Invalid choice")
-        
+if __name__ == "__name__":
+    main()    
 
         
